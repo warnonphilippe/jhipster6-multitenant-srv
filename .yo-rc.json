@@ -1,0 +1,35 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "be.civadis.jh6.srv"
+    },
+    "jhipsterVersion": "6.0.1",
+    "applicationType": "microservice",
+    "baseName": "srv",
+    "packageName": "be.civadis.jh6.srv",
+    "packageFolder": "be/civadis/jh6/srv",
+    "serverPort": "8081",
+    "authenticationType": "oauth2",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "NDVkNzdiODNjMDNiZWQ0ZDgyNTYxN2Q5MTJiMDQ3ZTkxYTMzNWQ2NDFhYWJkMTNjNTFlZWEzZmE0MDRjMDgxMTA3NDc2NWQwNmVkMzgyMzA4ZGRmNGI2NjVjMjI0Zjc2YTk2ZTQ3ZDc4ZmYwMDA5YWJlODBlZmZlMjdjMzQ4NGQ=",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}

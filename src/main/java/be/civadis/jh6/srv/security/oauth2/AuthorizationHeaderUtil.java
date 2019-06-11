@@ -38,4 +38,5 @@ public class AuthorizationHeaderUtil {
             return Optional.of(authorizationHeaderValue);
         }
     }
+
 }

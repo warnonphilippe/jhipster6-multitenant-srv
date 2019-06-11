@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,7 +22,7 @@ import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
 @EnableDiscoveryClient
 public class SrvApp implements InitializingBean {

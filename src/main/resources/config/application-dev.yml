@@ -43,9 +43,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/srv?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3307/srv?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
-    password:
+    password: root
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -140,4 +140,21 @@ jhipster:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
 
-# application:
+application:
+  issuer-base-uri: http://keycloak:9080/auth/realms/
+  multitenancy:
+        tenants:
+            - name: jhipster
+              default: true
+              #url: jdbc:mysql://localhost:3307/srv?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+              url: jdbc:mysql://localhost:3307/srv?useUnicode=true&characterEncoding=utf8
+              username: srv
+              password: srv
+              hikari:
+                  auto-commit: false
+                  data-source-properties:
+                      cachePrepStmts: true
+                      prepStmtCacheSize: 250
+                      prepStmtCacheSqlLimit: 2048
+                      useServerPrepStmts: true
+            

@@ -3,6 +3,7 @@ package be.civadis.jh6.srv.multitenancy;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import be.civadis.jh6.srv.security.oauth2.AuthorizationHeaderUtil;
 
@@ -10,6 +11,7 @@ import be.civadis.jh6.srv.security.oauth2.AuthorizationHeaderUtil;
  * Permet de rechercher le tenant courant
  * Recherche dans la secu spring puis dans le TenantContext
  */
+@Component
 public class TenantUtils {
 
     public static final String TENANT_PATH_VAR = "{realm}";

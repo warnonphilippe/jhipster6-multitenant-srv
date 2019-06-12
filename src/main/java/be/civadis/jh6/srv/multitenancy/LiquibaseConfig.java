@@ -38,7 +38,7 @@ public class LiquibaseConfig {
                                          LiquibaseProperties liquibaseProperties, DataSourceProperties dataSourceProperties) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(dataSource);
-        liquibase.setChangeLog("classpath:config/liquibase/"+this.applicationProperties.getFileDbUpdate());
+        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
         liquibase.setContexts(liquibaseProperties.getContexts());
         liquibase.setDefaultSchema(liquibaseProperties.getDefaultSchema());
         liquibase.setDropFirst(liquibaseProperties.isDropFirst());
@@ -62,7 +62,7 @@ public class LiquibaseConfig {
     @Bean("tenantLiquibase")
     public DatasourceBasedMultiTenantSpringLiquibase liquibaseMultiTenant() {
         DatasourceBasedMultiTenantSpringLiquibase liquibase = new DatasourceBasedMultiTenantSpringLiquibase();
-        liquibase.setChangeLog("classpath:config/liquibase/"+this.applicationProperties.getFileDbUpdate());
+        liquibase.setChangeLog("classpath:config/liquibase/master.xml");
         liquibase.setContexts("development, production");
         if (env.acceptsProfiles(JHipsterConstants.SPRING_PROFILE_NO_LIQUIBASE)) {
             liquibase.setShouldRun(false);

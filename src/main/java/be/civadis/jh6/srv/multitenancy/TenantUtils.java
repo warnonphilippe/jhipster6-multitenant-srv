@@ -25,18 +25,6 @@ public class TenantUtils {
     }    
 
     public String getTenant(){
-
-        //recherche dans la secu
-        if (this.authorizationHeaderUtil != null
-            && authorizationHeaderUtil.getAuthorizationHeader().isPresent()){
-            String token = authorizationHeaderUtil.getAuthorizationHeader().get();
-            if (token != null){
-                //on extrait le tenant du token
-                return TokenDecoder.getInstance().getTenant(token);
-            }
-        }
-
-        //si pas dans le secu, recherche dans le TenantContext
         return Optional.ofNullable(TenantContext.getCurrentTenant()).orElse(null);
     }
 

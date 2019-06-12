@@ -1,5 +1,6 @@
 package be.civadis.jh6.srv.config;
 
+import be.civadis.jh6.srv.multitenancy.TenantFilter;
 import be.civadis.jh6.srv.security.*;
 
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import be.civadis.jh6.srv.security.oauth2.AudienceValidator;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -62,6 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/management/prometheus").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
         .and()
+            .addFilterAfter(new TenantFilter(), CorsFilter.class)
             .oauth2ResourceServer().jwt();
         // @formatter:on
     }

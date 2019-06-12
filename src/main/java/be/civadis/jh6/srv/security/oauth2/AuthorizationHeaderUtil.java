@@ -25,14 +25,11 @@ public class AuthorizationHeaderUtil {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
         
-        OAuth2AccessToken accessToken = null;
-        if (oauthToken != null){
-            OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(
+        OAuth2AuthorizedClient client = clientService.loadAuthorizedClient(
             oauthToken.getAuthorizedClientRegistrationId(),
             oauthToken.getName());
 
-            accessToken = client.getAccessToken();
-        }
+        OAuth2AccessToken accessToken = client.getAccessToken();
         
         if (accessToken == null) {
             return Optional.empty();

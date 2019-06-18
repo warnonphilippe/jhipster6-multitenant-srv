@@ -1,19 +1,26 @@
 package be.civadis.jh6.srv.config;
 
 import be.civadis.jh6.srv.multitenancy.TenantFilter;
+import be.civadis.jh6.srv.multitenancy.TenantUtils;
 import be.civadis.jh6.srv.security.*;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import be.civadis.jh6.srv.security.oauth2.AudienceValidator;
+
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,8 +39,8 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 @Import(SecurityProblemSupport.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Value("${spring.security.oauth2.client.provider.oidc.issuer-uri}")
-    private String issuerUri;
+    //@Value("${spring.security.oauth2.client.provider.oidc.issuer-uri}")
+    //private String issuerUri;
     private final SecurityProblemSupport problemSupport;
 
     public SecurityConfiguration(SecurityProblemSupport problemSupport) {
@@ -98,7 +105,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    JwtDecoder jwtDecoder() {
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    JwtDecoder jwtDecoder(ClientRegistrationRepository registrations, TenantUtils tenantUtils) {
+
+        ClientRegistration registration = registrations.findByRegistrationId(tenantUtils.getTenant());
+        String issuerUri = (String) registration.getProviderDetails().getConfigurationMetadata().get("issuer");
+
         NimbusJwtDecoderJwkSupport jwtDecoder = (NimbusJwtDecoderJwkSupport)
             JwtDecoders.fromOidcIssuerLocation(issuerUri);
 
@@ -110,4 +122,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return jwtDecoder;
     }
+  
 }

@@ -89,6 +89,26 @@ spring:
     locator:
       discovery:
         enabled: true
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://localhost:9080/auth/realms/jhipster
+          jhipster:
+            issuer-uri: http://localhost:9080/auth/realms/jhipster
+          jhipster2:
+            issuer-uri: http://localhost:9080/auth/realms/jhipster2
+        registration:
+          oidc:
+            client-id: internal
+            client-secret: internal
+          jhipster:
+            client-id: internal
+            client-secret: internal
+          jhipster2:
+            client-id: internal
+            client-secret: internal
 
 server:
   port: 8081
@@ -141,7 +161,7 @@ jhipster:
 # ===================================================================
 
 application:
-  issuer-base-uri: http://localhost:9080/auth/realms/
+  #issuer-base-uri: http://localhost:9080/auth/realms/
   multitenancy:
         tenants:
             - name: jhipster
